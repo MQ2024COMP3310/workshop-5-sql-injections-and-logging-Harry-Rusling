@@ -56,6 +56,10 @@ public class App {
             String line;
             int i = 1;
             while ((line = br.readLine()) != null) {
+                if(!line.matches("^[a-z]{4}")) {
+                    System.out.println("Trying to add an invaild word to the database!");
+                    continue;
+                }
                 System.out.println(line);
                 wordleDatabaseConnection.addValidWord(i, line);
                 i++;
@@ -72,8 +76,13 @@ public class App {
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.print("Enter a 4 letter word for a guess or q to quit: ");
             String guess = scanner.nextLine();
-
+          
+           
             while (!guess.equals("q")) {
+                while(!guess.matches("^[a-z]{4}")) {
+                    System.out.print("Invalid input, try again: ");
+                    guess = scanner.nextLine();
+                }
                 System.out.println("You've guessed '" + guess+"'.");
 
                 if (wordleDatabaseConnection.isValidWord(guess)) { 
